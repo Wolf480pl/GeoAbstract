@@ -1,7 +1,6 @@
 package com.github.wolf480pl.geoabstract.spaces.sphere2d;
 
 import com.github.wolf480pl.geoabstract.geo2d.Space;
-import com.github.wolf480pl.geoabstract.util.Vector3;
 
 public class Space2D implements Space {
     private final RealPoint sphereCenter, surfaceCenter;
@@ -10,8 +9,8 @@ public class Space2D implements Space {
 
     public Space2D(float radius) {
         this.radius = radius;
-        this.sphereCenter = new RealPoint(this, Vector3.ZERO);
-        this.surfaceCenter = this.sphereCenter.add(radius, 0, 0);
+        this.sphereCenter = null;
+        this.surfaceCenter = null;
         this.center = new Point2D(this.surfaceCenter, 0);
     }
 
