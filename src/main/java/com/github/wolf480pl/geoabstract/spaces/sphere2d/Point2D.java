@@ -14,6 +14,9 @@ public class Point2D implements Point {
     }
 
     public Point add(Vector vector) {
+        float radius = this.point.getSpace().getRadius();
+        double angleDist = vector.length() / radius;  // In radians.
+        // TODO
         return null;
     }
 

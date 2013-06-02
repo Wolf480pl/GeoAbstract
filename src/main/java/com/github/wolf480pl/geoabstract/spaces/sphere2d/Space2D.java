@@ -22,4 +22,8 @@ public class Space2D implements Space {
         return this.sphereCenter;
     }
 
+    public float getRadius() {
+        return this.radius;
+    }
+
 }
