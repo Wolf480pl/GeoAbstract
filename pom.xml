@@ -2,18 +2,49 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Project information -->
+  <name>GeoAbstract</name>
   <groupId>com.github.wolf480pl.geoabstract</groupId>
   <artifactId>geoabstract</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <url>http://github.com/Wolf480pl/GeoAbstract</url>
+  <inceptionYear>2013</inceptionYear>
   <packaging>jar</packaging>
+  <description>Abstraction layer around different spaces and coordinate systems.</description>
 
-  <name>GeoAbstract</name>
-  <url>http://maven.apache.org</url>
-
+  <!-- Build properties -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <author>Wolf480pl</author>
+    <email>wolf480@interia.pl</email>
+    <buildNumber>0</buildNumber>
   </properties>
 
+  <developers>
+    <developer>
+      <id>wolf480pl</id>
+      <name>Wolf480pl</name>
+      <email>wolf480@interia.pl</email>
+    </developer>
+  </developers>
+
+  <!-- License information -->
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License Version 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <!-- Source code access -->
+  <scm>
+  	<url>http://github.com/Wolf480pl/GeoAbstract</url>
+  	<connection>scm:git:git://github.com/Wolf480pl/GeoAbstract.git</connection>
+  	<developerConnection>scm:git:git@github.com:Wolf480pl/GeoAbstract.git</developerConnection>
+  </scm>
+  
+  <!-- Build dependencies -->
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -22,4 +53,79 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <!-- Build configuration -->
+  <build>
+    <defaultGoal>clean install</defaultGoal>
+    
+    <!-- Resources to include -->
+    <resources>
+      <!-- Static resources -->
+      <resource>
+        <filtering>false</filtering>
+        <directory>.</directory>
+        <targetPath>.</targetPath>
+        <includes>
+          <include>LICENSE.txt</include>
+        </includes>
+      </resource>
+    </resources>
+    
+    <!-- Build plugins -->
+    <plugins>
+      <!-- License header plugin -->
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.10.b1</version>
+        <executions>
+          <execution>
+            <configuration>
+              <properties>
+                <name>${project.name}</name>
+                <url>${email}</url>
+                <inceptionYear>${project.inceptionYear}</inceptionYear>
+                <organization>${author}</organization>
+              </properties>
+              <quiet>true</quiet>
+              <encoding>UTF-8</encoding>
+              <strictCheck>true</strictCheck>
+              <header>HEADER.txt</header>
+              <mapping>
+                <java>SLASHSTAR_STYLE</java>
+              </mapping>
+              <keywords>
+                <keyword>${project.name}</keyword>
+                <keyword>license</keyword>
+              </keywords>
+              <includes>
+                <include>src/main/java/**</include>
+                <include>src/test/java/**</include>
+              </includes>
+            </configuration>
+            <phase>clean</phase>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Source compiler plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.0</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <compilerArguments>
+            <O>-Xlint:all</O>
+            <O>-Xlint:-path</O>
+          </compilerArguments>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
