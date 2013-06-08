@@ -94,6 +94,25 @@ public class Quaternion implements Serializable {
     /**
      * Constructs a new Quaternion that represents a given rotation around an
      * arbitrary axis
+     * @param ignore Ignored. This is because float float float float should be
+     * for angle/x,y,z
+     * @param angle Angle, in Radians, to rotate the axis about by
+     * @param x-axis
+     * @param y-axis
+     * @param z-axis
+     */
+    public Quaternion(boolean ingnore, double angle, float x, float y, float z) {
+        double halfAngle = angle / 2;
+        double q = Math.sin(halfAngle) / Math.sqrt(x * x + y * y + z * z);
+        this.x = (float) (x * q);
+        this.y = (float) (y * q);
+        this.z = (float) (z * q);
+        this.w = (float) Math.cos(halfAngle);
+    }
+
+    /**
+     * Constructs a new Quaternion that represents a given rotation around an
+     * arbitrary axis
      * @param angle Angle, in Degrees, to rotate the axis about by
      * @param x-axis
      * @param y-axis
@@ -106,6 +125,18 @@ public class Quaternion implements Serializable {
         this.y = (float) (y * q);
         this.z = (float) (z * q);
         this.w = (float) Math.cos(halfAngle);
+    }
+
+    /**
+     * Constructs a new Quaternion that represents a given rotation around an
+     * arbitrary axis
+     * @param ignore Ignored. This is because float float float float should be
+     * for angle/x,y,z
+     * @param angle Angle, in Radians, to rotate the axis about by
+     * @param axis
+     */
+    public Quaternion(boolean ignore, double angle, Vector3 axis) {
+        this(false, angle, axis.getX(), axis.getY(), axis.getZ());
     }
 
     /**
@@ -200,6 +231,25 @@ public class Quaternion implements Serializable {
      */
     public Quaternion normalize() {
         return QuaternionMath.normalize(this);
+    }
+
+    /**
+     * Conjugate this Quaternion
+     * @return the conjugated Quaternion
+     * @see #invert()
+     * @see Matrix#transpose()
+     */
+    public Quaternion conjugate() {
+        return QuaternionMath.conjugate(this);
+    }
+
+    /**
+     * Invert this Quaternion
+     * @return the inverted Quaternion
+     * @see #conjugate()
+     */
+    public Quaternion invert() {
+        return QuaternionMath.invert(this);
     }
 
     /**

@@ -22,6 +22,9 @@ package com.github.wolf480pl.geoabstract.spaces.sphere2d;
 import com.github.wolf480pl.geoabstract.geo2d.Point;
 import com.github.wolf480pl.geoabstract.geo2d.Space;
 import com.github.wolf480pl.geoabstract.geo2d.Vector;
+import com.github.wolf480pl.geoabstract.util.math.Quaternion;
+import com.github.wolf480pl.geoabstract.util.math.QuaternionMath;
+import com.github.wolf480pl.geoabstract.util.math.Vector3;
 
 public class Point2D implements Point {
     private final RealPoint point;
@@ -32,23 +35,27 @@ public class Point2D implements Point {
         this.baseAngle = baseAngle;
     }
 
+    @Override
     public Point add(Vector vector) {
         float radius = this.point.getSpace().getRadius();
         double angleDist = vector.length() / radius;  // In radians.
-        // TODO
-        return null;
+        Quaternion target = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle + vector.angle()).multiply(new Quaternion(false, angleDist, Vector3.UP));
+        return new Point2D(new RealPoint(this.point.getSpace(), target.getYaw(), target.getPitch()), target.getRoll() - vector.angle());
     }
 
+    @Override
     public Vector vectorTo(Point other) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public double distanceTo(Point other) {
         // TODO Auto-generated method stub
         return 0;
     }
 
+    @Override
     public boolean sameAs(Point other) {
         if (!(other instanceof Point2D)) {
             return false;
@@ -56,6 +63,7 @@ public class Point2D implements Point {
         return this.point.equals(((Point2D) other).point);
     }
 
+    @Override
     public Space getSpace() {
         return this.point.getSpace();
     }
