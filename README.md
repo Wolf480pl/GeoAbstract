@@ -4,6 +4,8 @@ Abstraction layer around different spaces and coordinate systems.
 
 Copyright (c) 2011-2012, Wolf480pl <<wolf480@interia.pl>>
 
+[![Build Status](https://www.travis-ci.org/Wolf480pl/GeoAbstract.png?branch=master)](https://www.travis-ci.org/Wolf480pl/GeoAbstract)
+
 Source
 ------
 The latest and greatest source can be found on [GitHub].  
