@@ -28,24 +28,33 @@ import com.github.wolf480pl.geoabstract.util.math.Vector3;
 
 public class Point2D implements Point {
     private final RealPoint point;
+    private final Space2D space;
     private final float baseAngle;
 
-    public Point2D(RealPoint point, float baseAngle) {
+    public Point2D(Space2D space, RealPoint point, float baseAngle) {
+        this.space = space;
         this.point = point;
         this.baseAngle = baseAngle;
     }
 
     @Override
     public Point add(Vector vector) {
-        float radius = this.point.getSpace().getRadius();
+        float radius = this.space.getRadius();
         double angleDist = vector.length() / radius;  // In radians.
         Quaternion target = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle + vector.angle()).multiply(new Quaternion(false, angleDist, Vector3.UP));
-        return new Point2D(new RealPoint(this.point.getSpace(), target.getYaw(), target.getPitch()), target.getRoll() - vector.angle());
+        return new Point2D(this.space, new RealPoint(target.getYaw(), target.getPitch()), target.getRoll() - vector.angle());
     }
 
     @Override
     public Vector vectorTo(Point other) {
-        // TODO Auto-generated method stub
+        if (!(other instanceof Point2D) || other.getSpace() != this.space) {
+            throw new IllegalArgumentException("The point must be from the same space.");
+        }
+        Quaternion from = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
+        Quaternion to = QuaternionMath.rotation(((Point2D) other).point.getLatitude(), ((Point2D) other).point.getLongitude(), ((Point2D) other).baseAngle);
+        Quaternion delta = to.multiply(from.conjugate());
+        // TODO
+
         return null;
     }
 
@@ -65,7 +74,7 @@ public class Point2D implements Point {
 
     @Override
     public Space getSpace() {
-        return this.point.getSpace();
+        return this.space;
     }
 
     @Override
