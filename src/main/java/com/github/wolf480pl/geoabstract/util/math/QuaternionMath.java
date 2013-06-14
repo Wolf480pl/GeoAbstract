@@ -45,6 +45,7 @@
  */
 package com.github.wolf480pl.geoabstract.util.math;
 
+
 /**
  * Class containing quaternion mathematical functions.
  */
@@ -84,9 +85,11 @@ public class QuaternionMath {
 
     /**
      * Conjugate the given Quaternion
+     * <p>
+     * Conjugation of a quaternion <code>a</code> is an operation returning quaternion <code>a'</code> such that <code>a' * a = a * a' = |a|^2</code>
+     * where <code>|a|^2</code> is squared length of <code>a</code>.
      * @param a the Quaternion to conjugate
      * @return the conjugated Quaternion
-     * @see #invert(Quaternion)
      * @see MatrixMath#transpose(Matrix)
      */
     public static Quaternion conjugate(Quaternion a) {
@@ -95,12 +98,16 @@ public class QuaternionMath {
 
     /**
      * Invert the given Quaternion
+     * <p>
+     * Inversion of a quaternion <code>a</code> returns quaternion <code>a⁻ⁱ = a' / |a|^2</code> where <code>a'</code> is {@link #conjugate(Quaternion) conjugation} of <code>a</code>,
+     * and <code>|a|^2</code> is squared length of <code>a</code>.
+     * <p>
+     * For any quaternions <code>a, b, c</code>, such that <code>a * b = c</code> equations <code>a⁻ⁱ * c = b</code> and <code>c * b⁻ⁱ = a</code> are true.
      * @param a the Quaternion to invert
-     * @return inverted Quaternion
-     * @see #conjugate(Quaternion)
+     * @return the inverted Quaternion
      */
     public static Quaternion invert(Quaternion a) {
-        return normalize(conjugate(a));
+        return divide(conjugate(a), a.lengthSquared());
     }
 
     /**
@@ -119,6 +126,26 @@ public class QuaternionMath {
         float w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
 
         return new Quaternion(x, y, z, w, true);
+    }
+
+    /**
+     * Multiplies the given Quaternion by the given scalar.
+     * @param a the Quaternion to multiply
+     * @param b the scalar
+     * @return the multiplied Quaternion
+     */
+    public static Quaternion multiply(Quaternion a, float b) {
+        return new Quaternion(a.x * b, a.y * b, a.z * b, a.w * b, true);
+    }
+
+    /**
+     * Divides the given Quaternion by the given scalar.
+     * @param a the Quaternion to divide
+     * @param b the scalar
+     * @return the divided Quaternion
+     */
+    public static Quaternion divide(Quaternion a, float b) {
+        return new Quaternion(a.x / b, a.y / b, a.z / b, a.w / b, true);
     }
 
     /**

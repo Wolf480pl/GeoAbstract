@@ -186,15 +186,35 @@ public class QuaternionTest {
         testValues(b, -5, -3, -1, 1);
         Quaternion res = b.multiply(a);
         testValues(res.normalize(), 0, 0, 0, 1);
+        assertEquals(b.lengthSquared(), res.length(), this.eps);
+
+        Quaternion res2 = a.multiply(b);
+        testValues(res, res2.x, res2.y, res2.z, res2.w);
     }
 
     @Test
     public void testInvertQuaternion() {
-        Quaternion a = new Quaternion(5, 3, 1, 1, true).normalize();
-        Quaternion b = a.invert();
-        testValues(b, -5 / 6f, -3 / 6f, -1 / 6f, 1 / 6f);
-        Quaternion res = b.multiply(a);
-        testValues(res, 0, 0, 0, 1);
+        Quaternion a = new Quaternion(5, 3, 1, 1, true);
+        Quaternion b = new Quaternion(6, 4, 3, 2, true);
+        Quaternion c = a.multiply(b);
+        Quaternion res = c.multiply(b.invert());
+        testValues(res, a.x, a.y, a.z, a.w);
+    }
+
+    @Test
+    public void testMultiplyQuaternionFloat() {
+        Quaternion a = new Quaternion(5, 3, 1, 1, true);
+        float b = 2.5f;
+        Quaternion res = a.multiply(b);
+        testValues(res, 5 * b, 3 * b, 1 * b, 1 * b);
+    }
+
+    @Test
+    public void testDivideQuaternionFloat() {
+        Quaternion a = new Quaternion(5, 3, 1, 1, true);
+        float b = 2.5f;
+        Quaternion res = a.divide(b);
+        testValues(res, 5 / b, 3 / b, 1 / b, 1 / b);
     }
 
     @Test

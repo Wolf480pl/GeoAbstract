@@ -236,8 +236,7 @@ public class Quaternion implements Serializable {
     /**
      * Conjugate this Quaternion
      * @return the conjugated Quaternion
-     * @see #invert()
-     * @see Matrix#transpose()
+     * @see QuaternionMath#conjugate(Quaternion)
      */
     public Quaternion conjugate() {
         return QuaternionMath.conjugate(this);
@@ -246,7 +245,7 @@ public class Quaternion implements Serializable {
     /**
      * Invert this Quaternion
      * @return the inverted Quaternion
-     * @see #conjugate()
+     * @see QuaternionMath#invert(Quaternion)
      */
     public Quaternion invert() {
         return QuaternionMath.invert(this);
@@ -259,6 +258,26 @@ public class Quaternion implements Serializable {
      */
     public Quaternion multiply(Quaternion o) {
         return QuaternionMath.multiply(this, o);
+    }
+
+    /**
+     * Multiplies this Quaternion by the given scalar.
+     * @param a the scalar
+     * @return the multiplied Quaternion
+     * @see QuaternionMath#multiply(Quaternion, float)
+     */
+    public Quaternion multiply(float a) {
+        return QuaternionMath.multiply(this, a);
+    }
+
+    /**
+     * Divides this Quaternion by the given scalar.
+     * @param a the scalar
+     * @return the divided Quaternion
+     * @see QuaternionMath#divide(Quaternion, float)
+     */
+    public Quaternion divide(float a) {
+        return QuaternionMath.divide(this, a);
     }
 
     /**
