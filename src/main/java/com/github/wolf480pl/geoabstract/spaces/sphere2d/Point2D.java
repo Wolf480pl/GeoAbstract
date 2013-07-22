@@ -24,6 +24,7 @@ import com.github.wolf480pl.geoabstract.geo2d.Space;
 import com.github.wolf480pl.geoabstract.geo2d.Vector;
 import com.github.wolf480pl.geoabstract.util.math.Quaternion;
 import com.github.wolf480pl.geoabstract.util.math.QuaternionMath;
+import com.github.wolf480pl.geoabstract.util.math.TrigMath;
 import com.github.wolf480pl.geoabstract.util.math.Vector3;
 
 public class Point2D implements Point {
@@ -50,18 +51,20 @@ public class Point2D implements Point {
         if (!(other instanceof Point2D) || other.getSpace() != this.space) {
             throw new IllegalArgumentException("The point must be from the same space.");
         }
-        Quaternion from = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
-        Quaternion to = QuaternionMath.rotation(((Point2D) other).point.getLatitude(), ((Point2D) other).point.getLongitude(), ((Point2D) other).baseAngle);
-        Quaternion delta = to.multiply(from.conjugate());
-        // TODO
-
-        return null;
+        Vector3 delta = deltaDir((Point2D) other);
+        double angle = TrigMath.atan2(delta.getY(), delta.getX()); // In radians.
+        double angleDist = TrigMath.acos(delta.getZ() / delta.length()); // In radians.
+        return new Vector(angleDist * this.space.getRadius(), (float) (angle * TrigMath.RADTODEG));
     }
 
     @Override
     public double distanceTo(Point other) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (!(other instanceof Point2D) || other.getSpace() != this.space) {
+            throw new IllegalArgumentException("The point must be from the same space.");
+        }
+        Vector3 delta = deltaDir((Point2D) other);
+        double angleDist = TrigMath.acos(delta.getZ() / delta.length()); // In radians.
+        return angleDist * this.space.getRadius();
     }
 
     @Override
@@ -83,5 +86,11 @@ public class Point2D implements Point {
             return false;
         }
         return sameAs((Point) other) && this.baseAngle == ((Point2D) other).baseAngle;
+    }
+
+    private Vector3 deltaDir(Point2D other) {
+        Quaternion from = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
+        Quaternion to = QuaternionMath.rotation(other.point.getLatitude(), other.point.getLongitude(), other.baseAngle);
+        return from.invert().multiply(to).getDirection();
     }
 }
