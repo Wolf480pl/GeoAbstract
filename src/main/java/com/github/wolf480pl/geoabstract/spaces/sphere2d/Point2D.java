@@ -23,28 +23,26 @@ import com.github.wolf480pl.geoabstract.geo2d.Point;
 import com.github.wolf480pl.geoabstract.geo2d.Space;
 import com.github.wolf480pl.geoabstract.geo2d.Vector;
 
+import org.spout.math.GenericMath;
 import org.spout.math.TrigMath;
 import org.spout.math.imaginary.Quaternion;
 import org.spout.math.vector.Vector3;
 
 public class Point2D implements Point {
-    private final RealPoint point;
+    private final Quaternion point;
     private final Space2D space;
-    private final float baseAngle;
 
-    public Point2D(Space2D space, RealPoint point, float baseAngle) {
+    public Point2D(Space2D space, Quaternion point) {
         this.space = space;
         this.point = point;
-        this.baseAngle = baseAngle;
     }
 
     @Override
     public Point add(Vector vector) {
-        float radius = this.space.getRadius();
+        double radius = this.space.getRadius();
         double angleDist = vector.length() / radius;  // In radians.
-        Quaternion target = Quaternion.fromAxesAnglesDeg(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle + vector.angle()).mul(Quaternion.fromAngleRadAxis(angleDist, Vector3.UP));
-        Vector3 angles = target.getAxesAngleDeg();
-        return new Point2D(this.space, new RealPoint(target.getY(), target.getX()), target.getZ() - vector.angle());
+        Quaternion target = this.point.mul(Quaternion.fromAngleDegAxis(vector.angle(), Vector3.FORWARD)).mul(Quaternion.fromAngleRadAxis(angleDist, Vector3.UP));
+        return new Point2D(this.space, target.mul(Quaternion.fromAngleDegAxis(-vector.angle(), Vector3.FORWARD)));
     }
 
     @Override
@@ -73,7 +71,9 @@ public class Point2D implements Point {
         if (!(other instanceof Point2D)) {
             return false;
         }
-        return this.point.equals(((Point2D) other).point);
+        Vector3 delta = this.point.getDirection().sub(((Point2D) other).point.getDirection()).abs();
+        // TODO: are we sure about this?
+        return delta.getX() < GenericMath.DBL_EPSILON && delta.getY() < GenericMath.DBL_EPSILON && delta.getZ() < GenericMath.DBL_EPSILON;
     }
 
     @Override
@@ -86,12 +86,10 @@ public class Point2D implements Point {
         if (!(other instanceof Point2D)) {
             return false;
         }
-        return sameAs((Point) other) && this.baseAngle == ((Point2D) other).baseAngle;
+        return this.point.equals(((Point2D) other).point);
     }
 
     private Vector3 deltaDir(Point2D other) {
-        Quaternion from = Quaternion.fromAxesAnglesDeg(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
-        Quaternion to = Quaternion.fromAxesAnglesDeg(other.point.getLatitude(), other.point.getLongitude(), other.baseAngle);
-        return from.invert().mul(to).getDirection();
+        return this.point.invert().mul(other.point).getDirection();
     }
 }

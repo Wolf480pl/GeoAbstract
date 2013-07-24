@@ -21,15 +21,17 @@ package com.github.wolf480pl.geoabstract.spaces.sphere2d;
 
 import com.github.wolf480pl.geoabstract.geo2d.Space;
 
-public class Space2D implements Space {
-    private final RealPoint realCenter;
-    private final Point2D center;
-    private final float radius;
+import org.spout.math.imaginary.Quaternion;
 
-    public Space2D(float radius) {
+public class Space2D implements Space {
+    private final Quaternion realCenter;
+    private final Point2D center;
+    private final double radius;
+
+    public Space2D(double radius) {
         this.radius = radius;
-        this.realCenter = new RealPoint();
-        this.center = new Point2D(this, this.realCenter, 0);
+        this.realCenter = new Quaternion();
+        this.center = new Point2D(this, this.realCenter);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class Space2D implements Space {
         return this.center;
     }
 
-    public float getRadius() {
+    public double getRadius() {
         return this.radius;
     }
 
