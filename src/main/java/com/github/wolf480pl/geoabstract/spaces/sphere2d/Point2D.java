@@ -22,10 +22,10 @@ package com.github.wolf480pl.geoabstract.spaces.sphere2d;
 import com.github.wolf480pl.geoabstract.geo2d.Point;
 import com.github.wolf480pl.geoabstract.geo2d.Space;
 import com.github.wolf480pl.geoabstract.geo2d.Vector;
-import com.github.wolf480pl.geoabstract.util.math.Quaternion;
-import com.github.wolf480pl.geoabstract.util.math.QuaternionMath;
-import com.github.wolf480pl.geoabstract.util.math.TrigMath;
-import com.github.wolf480pl.geoabstract.util.math.Vector3;
+
+import org.spout.math.TrigMath;
+import org.spout.math.imaginary.Quaternion;
+import org.spout.math.vector.Vector3;
 
 public class Point2D implements Point {
     private final RealPoint point;
@@ -42,8 +42,9 @@ public class Point2D implements Point {
     public Point add(Vector vector) {
         float radius = this.space.getRadius();
         double angleDist = vector.length() / radius;  // In radians.
-        Quaternion target = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle + vector.angle()).multiply(new Quaternion(false, angleDist, Vector3.UP));
-        return new Point2D(this.space, new RealPoint(target.getYaw(), target.getPitch()), target.getRoll() - vector.angle());
+        Quaternion target = Quaternion.fromAxesAnglesDeg(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle + vector.angle()).mul(Quaternion.fromAngleRadAxis(angleDist, Vector3.UP));
+        Vector3 angles = target.getAxesAngleDeg();
+        return new Point2D(this.space, new RealPoint(target.getY(), target.getX()), target.getZ() - vector.angle());
     }
 
     @Override
@@ -54,7 +55,7 @@ public class Point2D implements Point {
         Vector3 delta = deltaDir((Point2D) other);
         double angle = TrigMath.atan2(delta.getY(), delta.getX()); // In radians.
         double angleDist = TrigMath.acos(delta.getZ() / delta.length()); // In radians.
-        return new Vector(angleDist * this.space.getRadius(), (float) (angle * TrigMath.RADTODEG));
+        return new Vector(angleDist * this.space.getRadius(), (float) (angle * TrigMath.RAD_TO_DEG));
     }
 
     @Override
@@ -89,8 +90,8 @@ public class Point2D implements Point {
     }
 
     private Vector3 deltaDir(Point2D other) {
-        Quaternion from = QuaternionMath.rotation(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
-        Quaternion to = QuaternionMath.rotation(other.point.getLatitude(), other.point.getLongitude(), other.baseAngle);
-        return from.invert().multiply(to).getDirection();
+        Quaternion from = Quaternion.fromAxesAnglesDeg(this.point.getLatitude(), this.point.getLongitude(), this.baseAngle);
+        Quaternion to = Quaternion.fromAxesAnglesDeg(other.point.getLatitude(), other.point.getLongitude(), other.baseAngle);
+        return from.invert().mul(to).getDirection();
     }
 }
