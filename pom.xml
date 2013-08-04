@@ -54,8 +54,8 @@
     </dependency>
     <dependency>
     	<groupId>org.spout</groupId>
-    	<artifactId>math</artifactId>
-    	<version>1.0-SNAPSHOT</version>
+    	<artifactId>spout-math</artifactId>
+    	<version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
   
