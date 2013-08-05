@@ -53,7 +53,7 @@ public class Point2D implements Point {
         Vector3 delta = deltaDir((Point2D) other);
         double angle = TrigMath.atan2(delta.getY(), delta.getX()); // In radians.
         double angleDist = TrigMath.acos(delta.getZ() / delta.length()); // In radians.
-        return new Vector(angleDist * this.space.getRadius(), (float) (angle * TrigMath.RAD_TO_DEG));
+        return new Vector(angleDist * this.space.getRadius(), angle * TrigMath.RAD_TO_DEG);
     }
 
     @Override

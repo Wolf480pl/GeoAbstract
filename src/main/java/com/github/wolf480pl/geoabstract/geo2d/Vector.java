@@ -20,15 +20,19 @@
 package com.github.wolf480pl.geoabstract.geo2d;
 
 public class Vector {
-    private final double length;
+    private final float length;
     private final float angle;
 
-    public Vector(double length, float angle) {
+    public Vector(float length, float angle) {
         this.length = length;
         this.angle = angle;
     }
 
-    public double length() {
+    public Vector(double length, double angle) {
+        this((float) length, (float) angle);
+    }
+
+    public float length() {
         return this.length;
     }
 
