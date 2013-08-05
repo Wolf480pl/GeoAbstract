@@ -2,6 +2,8 @@ language: java
 jdk: openjdk7
 before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
 install: mvn clean -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+script: "mvn deploy --settings target/travis/settings.xml"
+
 notifications:
     email: false
     irc: "irc.esper.net#Wolf480pl"
