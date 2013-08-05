@@ -62,12 +62,12 @@
     <snapshotRepository>
       <id>wolf480pl-snapshots</id>
       <name>Wolf480pl Nexus Snapshots</name>
-      <url>http://nexus.wolf480pl.t28.net/content/repositories/snapshots/</url>
+      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
     <repository>
       <id>wolf480pl-releases</id>
       <name>Wolf480pl Nexus Releases</name>
-      <url>http://nexus.wolf480pl.t28.net/content/repositories/releases/</url>
+      <url>http://nex-wolf480pl.rhcloud.com/nexus/content/repositories/releases/</url>
     </repository>
   </distributionManagement>
   
