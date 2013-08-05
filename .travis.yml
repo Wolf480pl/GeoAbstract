@@ -5,6 +5,9 @@ install: mvn clean -DbuildNumber=${TRAVIS_BUILD_NUMBER}
 notifications:
     email: false
     irc: "irc.esper.net#Wolf480pl"
+branches:
+  except:
+    - travis
 env:
   global:
     - secure: "GHiCrPAdSkf+5+gWL1bu/oEV276nhs5s7Cs4AzYBVmYah71wYfspPeMSXrJHbbMrdkaSjMkED3B0eUx3XxAzrF1SxkrHGdOUnek6zEIcyiFwwFWyCxHCB/PZRIrzCmZzimBvExKTZATXZJ9QtuM6y3vusq8wInTzNqoaeEfN1q4="
