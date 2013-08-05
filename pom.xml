@@ -20,6 +20,7 @@
     <buildNumber>0</buildNumber>
   </properties>
 
+  <!-- Developers -->
   <developers>
     <developer>
       <id>wolf480pl</id>
@@ -39,10 +40,22 @@
 
   <!-- Source code access -->
   <scm>
-  	<url>http://github.com/Wolf480pl/GeoAbstract</url>
-  	<connection>scm:git:git://github.com/Wolf480pl/GeoAbstract.git</connection>
-  	<developerConnection>scm:git:git@github.com:Wolf480pl/GeoAbstract.git</developerConnection>
+    <url>http://github.com/Wolf480pl/GeoAbstract</url>
+    <connection>scm:git:git://github.com/Wolf480pl/GeoAbstract.git</connection>
+    <developerConnection>scm:git:git@github.com:Wolf480pl/GeoAbstract.git</developerConnection>
   </scm>
+  
+  <!-- Dependency repositories -->
+  <repositories>
+    <repository>
+      <id>wolf480pl-repo</id>
+      <url>http://repo.wolf480pl.t28.net/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
   
   <!-- Build dependencies -->
   <dependencies>
@@ -121,8 +134,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.0</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
           <compilerArguments>
             <O>-Xlint:all</O>
             <O>-Xlint:-path</O>
