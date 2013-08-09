@@ -13,6 +13,10 @@
       <username>${env.CI_DEPLOY_USERNAME}</username>
       <password>${env.CI_DEPLOY_PASSWORD}</password>
     </server>
+    <server>
+      <id>github-deploy</id>
+      <password>${env.GITHUB_DEPLOY_TOKEN}</password>
+    </server>
   </servers>
   <mirrors/>
   <proxies/>
