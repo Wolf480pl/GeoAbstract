@@ -164,6 +164,14 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+      <!-- Site generation plugin -->
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+        <configuration>
+          <skipDeploy>true</skipDeploy>
+        </configuration>
+      </plugin>
       <!-- Site GitHub deployment -->
       <plugin>
         <groupId>com.github.github</groupId>
