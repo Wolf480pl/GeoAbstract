@@ -17,6 +17,6 @@ branches:
     - gh-pages
 env:
   global:
-    - secure: "GHiCrPAdSkf+5+gWL1bu/oEV276nhs5s7Cs4AzYBVmYah71wYfspPeMSXrJHbbMrdkaSjMkED3B0eUx3XxAzrF1SxkrHGdOUnek6zEIcyiFwwFWyCxHCB/PZRIrzCmZzimBvExKTZATXZJ9QtuM6y3vusq8wInTzNqoaeEfN1q4="
-    - secure: "lRFfInpTGSx39soyskFqbs4Bzmzfq9Ab09xX2mL+XgxsZgYHKBAm0vZUYF99V2uNDV9AT7jiKnIDIiP9dbSoOP2Zo07sdI+UNamXGbBH8ShQXZw2xf4n14MQZllpmJHee1/rhOamiGK64pxpRns9AbLj+3HR3a33YKLBadG0ZX4="
+    - secure: "Os4HHpatSyil5pQ6JeRnflAYRnO1LjkotCvcwAfpBCQRnkmcvSnLuIHE9ojjhB1Pe9mjKHVEe2FcAr+As5lbonpACokTGTZPBXd7JFlMI5c52aW0GGAWKsLNF8o5XNP+gn52y5mkRG+YfHfbCCQ8dvuD41i4/gayE9yl3FnDcUs="
+    - secure: "Nbb64A9OJOjRhJNoNFHbvV87FEX42y8QeS5D01ZWd4z79YLCBjmUjHFivNbqN9vLtde8cLdXuf//BxhKjm/OLSQsxKcmrMe+sy7qYZQJgG7AH2RMosX2pGpGB3aeTfpiarhAj2M+RUcv6zrmNJyk5epLIWlzQOrfjBkRBrqHixI="
     - secure: "GBe+gTtmLY7w6jAK5lMPPL4r07HQig7zE2kBerAqecd9EWYSMGfOCj1Yq0ZM7JcXsku8tKORYeht836BCI507+7k+lJawyG1xtKY6wYBewIYhV1YTtIxuKKHhdNXHf9uPEgWs0ojNqeN3rEhcUA0ydqOZJpd/u+ggsdz3gMbOkI="
