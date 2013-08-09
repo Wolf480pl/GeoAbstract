@@ -14,6 +14,7 @@ notifications:
 branches:
   except:
     - travis
+    - gh-pages
 env:
   global:
     - secure: "GHiCrPAdSkf+5+gWL1bu/oEV276nhs5s7Cs4AzYBVmYah71wYfspPeMSXrJHbbMrdkaSjMkED3B0eUx3XxAzrF1SxkrHGdOUnek6zEIcyiFwwFWyCxHCB/PZRIrzCmZzimBvExKTZATXZJ9QtuM6y3vusq8wInTzNqoaeEfN1q4="
