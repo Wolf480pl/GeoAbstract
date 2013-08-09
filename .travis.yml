@@ -5,7 +5,7 @@ install: mvn clean package -DbuildNumber=${TRAVIS_BUILD_NUMBER} -DskipTests=true
 after_success:
   - "git clone -b travis `git config --get remote.origin.url` target/travis"
   - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && mvn deploy --settings target/travis/settings.xml"
-  - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && echo $COMMIT_MESSAGE |grep -iF [site] && mvn site-deploy"
+  - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && echo $COMMIT_MESSAGE |grep -iF [site] && mvn site-deploy --settings target/travis/settings.xml"
 
 notifications:
     email: false
