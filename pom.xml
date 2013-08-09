@@ -164,6 +164,25 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+      <!-- Site GitHub deployment -->
+      <plugin>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.7</version>
+        <executions>
+          <execution>
+            <configuration>
+              <server>github-deploy</server>
+              <branch>refs/heads/gh-pages</branch>
+              <message>Site for ${project.name} ${project.version}-b${buildNumber}</message>
+            </configuration>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   
