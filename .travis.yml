@@ -1,6 +1,7 @@
 language: java
 jdk: openjdk7
 before_install:
+  - 'echo -e \\e[32m hey'
   - 'export COMMIT_MESSAGE=`curl https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/commits/$TRAVIS_COMMIT |sed -n ''s/.*"message": "\(.*\)",/\1/p''`'
   - '[ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_REPO_SLUG == Wolf480pl/GeoAbstract -a $TRAVIS_BRANCH == master ] && export DEPLOY=true'
 install: mvn clean package -DbuildNumber=${TRAVIS_BUILD_NUMBER} -DskipTests=true
